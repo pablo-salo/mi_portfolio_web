@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de Pablo | Blog de Historia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <header class="main-header">    
+        <nav class="nav-container">
+            <div class="fila" onclick="loadArticle('inicio')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Cave_canem.JPG" alt="Mosaico Romano" class="logo-img">
+                <h1 style="font-size: 1.5rem; font-weight: 700;">Cronos<span style="color: var(--accent-color);">Blog</span></h1>
+            </div>
+
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link" data-topic="portfolio">Sobre Mí (Portfolio)</a></li>
+                
+                <li><a href="#" class="nav-link" data-topic="inicio">Inicio</a></li>
+                <li><a href="#" class="nav-link" data-topic="roma">Roma</a></li>
+                <li><a href="#" class="nav-link" data-topic="grecia">Grecia</a></li>
+                <li><a href="#" class="nav-link" data-topic="egipto">Egipto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+
+        <article id="article-content" class="fade-transition opacity-100">
+            </article>
+
+        <section id="comment-section" class="comments-section">
+            <div class="comments-card">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Comentarios</h3>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.9rem;">¿Qué opinas sobre este periodo histórico? Déjanos tu mensaje.</p>
+
+                <form id="comment-form">
+                    <input type="hidden" id="article-topic" name="topic" value="inicio">
+                    
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;"> 
+                        <div style="flex: 1; min-width: 250px;">
+                            <label for="name" style="font-size: 0.875rem; font-weight: 600;">Nombre</label>
+                            <input type="text" id="name" required class="form-input" placeholder="Tu nombre">
+                        </div>
+                        <div style="flex: 1; min-width: 250px;">
+                            <label for="email" style="font-size: 0.875rem; font-weight: 600;">Email</label>
+                            <input type="email" id="email" required class="form-input" placeholder="tu@email.com">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1rem;">
+                        <label for="comment" style="font-size: 0.875rem; font-weight: 600;">Tu mensaje</label>
+                        <textarea id="comment" rows="4" required class="form-input" placeholder="Escribe aquí tu opinión..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Publicar Comentario</button>
+                </form>
+
+                <div id="success-message" class="success-box hidden">
+                    <span>✅</span> <span style="margin-left: 8px;">¡Gracias! Tu comentario ha sido enviado correctamente.</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="site-footer">
+        <p>&copy; 2026 Blog de Historia y Portfolio. Creado con fines educativos.</p>
+        <div style="margin-top: 0.5rem;">
+            <a href="#">Aviso Legal</a> | <a href="#">Privacidad</a>
+        </div>
+    </footer>
+
+    <script>
+        // 1. BASE DE DATOS DE CONTENIDO
+        const articles = {
+            portfolio: {
+                title: "Portafolio Personal",
+                content: `
+                    <div>
+                        <section style="margin-bottom: 2.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 2rem;">
+                            <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                                <img src="./CV_Photo.JPEG" 
+                                     alt="Foto de perfil" 
+                                     style="border-radius: 50%; width: 100px; height: 100px; border: 3px solid #1e293b;">
+                                <div>
+                                    <h3 style="font-size: 1.5rem; font-weight: 700;">Hola, soy Pablo</h3>
+                                    <p>Estudiante de Desarrollo Web apasionado por la historia y la tecnología.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section style="margin-bottom: 2.5rem;">
+                            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Sobre mí</h3>
+                            <p>Mi perfil no es el tradicional, y esa es mi mayor fortaleza. Soy <strong>Graduado en Historia</strong>, lo que me aportó un conocimiento general sobre el desarrollo de las sociedades y del ser humano. Además de capacidad de investigación y síntesis. Tras finalizar dichos estudios descubrí que mi propósito no es tan teórico sino práctico y me decidí por cursar <strong>dos años de Ingeniería Informática</strong>. En esos dos años adquirí una sólida base lógica y matemática, pero no la suficiente como para finalizar dichos estudios con éxito. Por lo tanto, me he centrado en el curso de Administración de Sistemas Informáticos y Redes. Compagino mis estudios con mi trabajo como conductor de Uber para la flota de Moove Cars en Granada. Soy una persona a la que le gusta el trabajo y conocer nuevos sectores profesionales.</p>
+                        </section>
+
+                        <section style="margin-bottom: 2.5rem;">
+                            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Formación</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 1rem; background: #f8fafc; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid #facc15;">
+                                    <h4 style="font-weight: 700;">Grado Superior ASIR</h4>
+                                    <p style="font-size: 0.9rem; color: #64748b;">Prometeo | 2025 - Actualidad</p>
+                                </li>
+                                <li style="margin-bottom: 1rem; background: #f8fafc; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid #94a3b8;">
+                                    <h4 style="font-weight: 700;">Conductor VTC</h4>
+                                    <p style="font-size: 0.9rem; color: #64748b;">Moove Cars Granada | 2025 - Actualidad</p>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <section style="margin-bottom: 2.5rem;">
+                            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Proyectos</h3>
+                            <article style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem;">
+                                <h4 style="font-weight: 700;">CronosBlog</h4>
+                                <p style="margin: 0.5rem 0;">Web SPA sobre historia antigua creada con JS vanilla.</p>
+                                <div>
+                                    <span class="badge badge-blue">HTML5</span>
+                                    <span class="badge badge-yellow">CSS3</span>
+                                </div>
+                                <a href="#" onclick="loadArticle('inicio')" style="display:inline-block; margin-top:1rem; color:#2563eb; font-weight:600;">Ver Demo &rarr;</a>
+                            </article>
+                        </section>
+                        
+                        <section>
+                            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Contacto</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>📧 pablo979salo@gmail.com</li>
+                                <li>🐙 github.com/pablo</li>
+                            </ul>
+                        </section>
+                    </div>
+                `
+            },
+            inicio: {
+                title: "Bienvenido a CronosBlog",
+                content: `
+                    <div>
+                        <p style="font-size: 1.25rem; font-style: italic; color: #64748b; margin-bottom: 1rem;">"Quien no conoce la historia está condenado a repetirla."</p>
+                        <p>Este es un espacio dedicado a los grandes imperios. Navega por el menú superior para descubrir los secretos de las civilizaciones antiguas.</p>
+                        <div style="margin-top: 2rem; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                            <img src="https://placehold.co/800x400/334155/ffffff?text=Historia+Universal" alt="Banner Historia" style="margin-top: 0; width: 100%;">
+                        </div>
+                    </div>
+                `
+            },
+            roma: {
+                title: "SPQR: El Imperio Romano",
+                content: `
+                    <div>
+                        <div style="margin-bottom: 1rem;">
+                            <span class="badge badge-red">Imperio</span>
+                            <span class="badge badge-slate">Europa</span>
+                        </div>
+                        <p>Desde una modesta ciudad-estado hasta el imperio más grande de la antigüedad. La historia de Roma abarca más de un milenio.</p>
+                        <img src="https://placehold.co/800x400/7f1d1d/ffffff?text=Coliseo+Romano" alt="El Coliseo">
+                    </div>
+                `
+            },
+            egipto: {
+                title: "Egipto: El Don del Nilo",
+                content: `
+                    <div>
+                        <div style="margin-bottom: 1rem;">
+                            <span class="badge badge-yellow">Faraones</span>
+                            <span class="badge badge-slate">África</span>
+                        </div>
+                        <p>Una civilización eterna definida por el río Nilo, los faraones dioses y la vida después de la muerte.</p>
+                        <img src="https://placehold.co/800x400/ca8a04/ffffff?text=Piramides+de+Giza" alt="Pirámides">
+                    </div>
+                `
+            },
+            grecia: {
+                title: "Grecia: Cuna de la Razón",
+                content: `
+                    <div>
+                         <div style="margin-bottom: 1rem;">
+                            <span class="badge badge-blue">Filosofía</span>
+                            <span class="badge badge-slate">Democracia</span>
+                        </div>
+                        <p>Filosofía, democracia, teatro y mitología que moldearon el pensamiento occidental.</p>
+                        <img src="https://placehold.co/800x400/1e40af/ffffff?text=Acropolis" alt="Acrópolis">
+                    </div>
+                `
+            }
+        };
+
+        // 2. LÓGICA DE LA APLICACIÓN
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const articleContent = document.getElementById('article-content');
+            const articleTopicInput = document.getElementById('article-topic');
+            const commentForm = document.getElementById('comment-form');
+            const successMessage = document.getElementById('success-message');
+            const commentSection = document.getElementById('comment-section');
+
+            // --- Función Principal ---
+            function loadArticle(topic) {
+                // 1. Ocultar contenido actual
+                articleContent.classList.remove('opacity-100');
+                articleContent.classList.add('opacity-0');
+                
+                setTimeout(() => {
+                    // Cargar datos
+                    const article = articles[topic] || articles.inicio;
+                    
+                    // Inyectar HTML
+                    articleContent.innerHTML = `
+                        <h2>${article.title}</h2>
+                        ${article.content}
+                    `;
+                    
+                    // --- LÓGICA DE OCULTAR COMENTARIOS ---
+                    // Si es 'inicio' o 'portfolio', ocultamos la sección de comentarios
+                    if (topic === 'inicio' || topic === 'portfolio') {
+                        commentSection.classList.add('hidden');
+                    } else {
+                        commentSection.classList.remove('hidden');
+                    }
+                    // ------------------------------------
+
+                    articleTopicInput.value = topic;
+                    successMessage.classList.add('hidden');
+                    
+                    // 2. Mostrar nuevo contenido
+                    articleContent.classList.remove('opacity-0');
+                    articleContent.classList.add('opacity-100');
+
+                    updateActiveLink(topic);
+                }, 300); 
+            }
+
+            function updateActiveLink(currentTopic) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active'); 
+                    if(link.getAttribute('data-topic') === currentTopic) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Listeners
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const topic = e.target.getAttribute('data-topic');
+                    loadArticle(topic);
+                    if(window.innerWidth < 768) {
+                         articleContent.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Manejo del formulario
+            commentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = commentForm.querySelector('button');
+                const originalText = btn.innerText;
+                
+                btn.innerText = "Enviando...";
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    successMessage.classList.remove('hidden');
+                    commentForm.reset();
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    
+                    setTimeout(() => {
+                        successMessage.classList.add('hidden');
+                    }, 5000);
+                }, 1000);
+            });
+
+            // Iniciar cargando el Portfolio (Requisito de la profesora)
+            loadArticle('portfolio');
+        });
+    </script>
+</body>
+</html>
